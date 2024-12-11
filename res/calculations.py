@@ -4,8 +4,8 @@ import numpy as np
 from res import constants
 
 
-class SystemConverter:
-    """Class for converting from one system of coordinates to another"""
+class CoordinatesCalculator:
+    """Class for calculating result coordinates"""
 
     @staticmethod
     def coordinates_for_map() -> tuple[list[float]]:
@@ -102,6 +102,8 @@ class SystemConverter:
             longitudes.append(longitude)
 
         return latitudes, longitudes
+class SystemConverter:
+    """Class for converting from one system of coordinates to another"""
 
     @staticmethod
     def perifocal_to_geocentric(

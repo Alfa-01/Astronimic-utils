@@ -7,15 +7,22 @@ from mpl_toolkits.basemap import Basemap
 from res import constants
 
 
-class Plot(abc.ABC):
-    """Base class for all plot builders"""
+class Plot3D(abc.ABC):
+    """Base class for 3D plot builders"""
 
     def __init__(self, width: int, height: int) -> None:
         self._figure: plt.plot = plt.figure(figsize=(width, height))
         self._axes: plt.axis = self._figure.add_subplot(projection="3d")
 
 
-class SphericalPlot(Plot):
+class Plot2D(abc.ABC):
+    """Base class for 2D plot builders"""
+
+    def __init__(self, width: int, height: int) -> None:
+        plt.figure(figsize=(width, height))
+
+
+class SphericalPlot(Plot3D):
     """Class for drawing sphere plot and satellites's trajectory on it"""
 
     def __init__(self, width: int, height: int) -> None:
@@ -74,12 +81,11 @@ class SphericalPlot(Plot):
         plt.show()
 
 
-class MapPlot(Plot):
+class MapPlot(Plot2D):
     """Class for drawing World's map and satellites's trajectory on it"""
 
     def __init__(self, width: int, height: int) -> None:
         super().__init__(width, height)
-
         plt.title("Проекция орбиты спутника на Землю")
         self.__map_plot: Basemap = Basemap(projection="cyl", resolution="l")
 
@@ -104,7 +110,7 @@ class MapPlot(Plot):
         plt.show()
 
 
-class EllipsoidsPlot(Plot):
+class EllipsoidsPlot(Plot3D):
     """Class for drawing ellipsoid and satellite's orbit on it"""
 
     def __init__(self, width, height):
